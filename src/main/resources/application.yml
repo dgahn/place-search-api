@@ -7,3 +7,15 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+
+kakao:
+  url: ${KAKAO_URL:https://dapi.kakao.com/v2/local/search/keyword}
+  keyPrefix: ${KAKAO_KEY_PREFIX:KakaoAK}
+  apiKey: ${KAKAO_API_KEY:eb910bfed390a13b9d4b2b78b6f7c083}
+
+naver:
+  url: ${NAVAER_URL:https://openapi.naver.com/v1/search/local.json}
+  clientIdKey: ${CLIENT_ID_KEY:X-Naver-Client-Id}
+  clientIdValue: ${CLIENT_ID_KEY:gEPKphu0l9J3YmayePQM}
+  clientSecretKey: ${CLIENT_SECRET_KEY:X-Naver-Client-Secret}
+  clientSecretValue: ${CLIENT_SECRET_KEY:zT9yEY3FFM}

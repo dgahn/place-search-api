@@ -31,6 +31,7 @@ noArg {
     annotation("javax.persistence.MappedSuperclass")
     annotation("javax.persistence.Embeddable")
     annotation("kotlinx.serialization.Serializable")
+    annotation("com.kakaobank.place.client.ResponseDto")
 }
 
 kotlinter {
@@ -45,11 +46,12 @@ dependencies {
     implementation(kotlin("stdlib"))
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.retry:spring-retry")
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("mysql:mysql-connector-java:8.0.31")
     runtimeOnly("org.jetbrains.kotlin:kotlin-reflect:1.6.21")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test"){
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")

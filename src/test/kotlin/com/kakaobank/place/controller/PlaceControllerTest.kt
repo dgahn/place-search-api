@@ -23,8 +23,8 @@ class PlaceControllerTest : SpringMockMvcTestSupport() {
     fun `장소를_검색할_수_있다`() {
         every { placeApplicationService.searchPlace(any()) } returns PlaceFixture.getPlaces()
         val uri = URI("/api/v1/place")
-        val keyword = "keyword"
-        uri.addQueryParam(keyword, keyword)
+        val query = "query"
+        uri.addQueryParam(query, query)
         val response = SearchPlaceDtoFixture.getResponseDto()
         mockMvcGetTest(uri, response)
     }

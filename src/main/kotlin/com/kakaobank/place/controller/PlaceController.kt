@@ -14,7 +14,7 @@ class PlaceController(
 ) {
 
     @GetMapping("/api/v1/place")
-    fun searchPlace(@RequestParam keyword: String): ResponseEntity<PlaceListResponseDto> {
-        return ResponseEntity.ok(placeApplicationService.searchPlace(keyword).toPlaceListResponseDto())
+    fun searchPlace(@RequestParam query: String): ResponseEntity<PlaceListResponseDto> {
+        return ResponseEntity.ok(placeApplicationService.searchPlace(query).toPlaceListResponseDto())
     }
 }

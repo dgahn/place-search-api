@@ -31,7 +31,7 @@ GET /api/v1/place
 
 | Name    |Type| Description     |Required|
 |---------|---|-----------------|---|
-| keyword |String| 검색하고 싶은 장소의 키워드 |O|
+| query |String| 검색하고 싶은 장소의 키워드 |O|
 
 #### 검색 키워드 목록 API
 
