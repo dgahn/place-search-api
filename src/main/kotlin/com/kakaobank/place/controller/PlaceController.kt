@@ -13,7 +13,7 @@ class PlaceController(
     private val placeApplicationService: PlaceApplicationService
 ) {
 
-    @GetMapping("/api/v1/place")
+    @GetMapping("/api/v1/places")
     fun searchPlace(@RequestParam query: String): ResponseEntity<PlaceListResponseDto> {
         return ResponseEntity.ok(placeApplicationService.searchPlace(query).toPlaceListResponseDto())
     }
