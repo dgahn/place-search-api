@@ -1,9 +1,11 @@
 package com.kakaobank.place.controller.dto
 
 import com.kakaobank.place.domain.Place
+import com.kakaobank.place.domain.SearchType
 
 data class PlaceResponseDto(
-    val title: String
+    val title: String,
+    val type: SearchType
 )
 
 data class PlaceListResponseDto(
@@ -15,5 +17,5 @@ fun List<Place>.toPlaceListResponseDto(): PlaceListResponseDto {
 }
 
 fun Place.toPlaceResponseDto(): PlaceResponseDto {
-    return PlaceResponseDto(name)
+    return PlaceResponseDto(name, type)
 }
