@@ -4,13 +4,15 @@ import com.kakaobank.place.client.kakao.KaKaoClient
 import com.kakaobank.place.client.naver.NaverClient
 import com.kakaobank.place.domain.Place
 import com.kakaobank.place.domain.SearchPlaceHistory
+import com.kakaobank.place.domain.SearchPlaceHistoryJpaRepository
 import com.kakaobank.place.domain.SearchType
 import org.springframework.stereotype.Service
 
 @Service
 class PlaceApplicationService(
     private val kakaoClient: KaKaoClient,
-    private val naverClient: NaverClient
+    private val naverClient: NaverClient,
+    private val searchPlaceHistoryJpaRepository: SearchPlaceHistoryJpaRepository
 ) {
     fun searchPlace(query: String): List<Place> {
         val kakaoPlaces = kakaoClient.search(query)
@@ -18,7 +20,16 @@ class PlaceApplicationService(
         val placeSet = mutableSetOf<Place>()
         placeSet.addAll(kakaoPlaces)
         placeSet.addAll(naverPlaces)
+        countSearchPlaceHistory(query)
         return extract(placeSet)
+    }
+
+    private fun countSearchPlaceHistory(query: String) {
+        val history = searchPlaceHistoryJpaRepository.findByKeyword(query)
+            ?: SearchPlaceHistory(keyword = query)
+
+        history.countUp()
+        searchPlaceHistoryJpaRepository.save(history)
     }
 
     private fun extract(placeSet: Set<Place>): List<Place> {

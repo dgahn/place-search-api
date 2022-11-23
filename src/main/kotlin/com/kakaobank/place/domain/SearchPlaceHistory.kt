@@ -2,6 +2,7 @@ package com.kakaobank.place.domain
 
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
+import org.springframework.data.annotation.Version
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.Instant
 import javax.persistence.Column
@@ -27,6 +28,10 @@ class SearchPlaceHistory(
 
     @LastModifiedDate
     var updatedAt: Instant? = updatedAt
+        protected set
+
+    @Version
+    var version: Long = 1
         protected set
 
     var count: Int = 0

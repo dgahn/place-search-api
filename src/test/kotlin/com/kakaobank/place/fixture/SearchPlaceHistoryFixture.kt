@@ -13,4 +13,13 @@ object SearchPlaceHistoryFixture {
             }
         }
     }
+
+    fun getSearchPlaceHistory(): SearchPlaceHistory {
+        return SearchPlaceHistory(
+            id = 1.toLong(),
+            keyword = 1.toString()
+        ).apply {
+            this.countUp()
+        }
+    }
 }
