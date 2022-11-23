@@ -1,5 +1,6 @@
 package com.kakaobank.place.client.kakao
 
+import com.kakaobank.place.domain.Place
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
@@ -22,11 +23,12 @@ class KaKaoClient(
     }
 
     @Retryable(maxAttempts = 2, backoff = Backoff(delay = 100))
-    fun search(query: String): KakaoPlaceResponseDto {
+    fun search(query: String): List<Place> {
         val url = createURL(query)
         val entity: HttpEntity<String> = HttpEntity(headers)
 
         return restTemplate.exchange(url, HttpMethod.GET, entity, KakaoPlaceResponseDto::class.java).body
+            .toDomain()
     }
 
     private fun createURL(query: String): String =

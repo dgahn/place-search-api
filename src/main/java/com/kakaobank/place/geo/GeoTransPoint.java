@@ -1,0 +1,37 @@
+package com.kakaobank.place.geo;
+
+public class GeoTransPoint {
+
+    double x;
+
+    double y;
+
+    double z;
+
+    public GeoTransPoint() {
+        super();
+    }
+
+    public GeoTransPoint(double x, double y) {
+        super();
+        this.x = x;
+        this.y = y;
+        this.z = 0;
+    }
+
+    public GeoTransPoint(double x, double y, double z) {
+        super();
+        this.x = x;
+        this.y = y;
+        this.z = 0;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+}

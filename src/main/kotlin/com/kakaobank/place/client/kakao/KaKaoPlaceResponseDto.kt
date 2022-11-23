@@ -2,6 +2,8 @@ package com.kakaobank.place.client.kakao
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.kakaobank.place.client.ResponseDto
+import com.kakaobank.place.domain.Place
+import com.kakaobank.place.domain.SearchType
 
 @ResponseDto
 data class KaKaoPlaceMetaDto(
@@ -59,4 +61,15 @@ data class KakaoPlaceResponseDto(
     val meta: KaKaoPlaceMetaDto,
     @JsonProperty("documents")
     val documents: List<KakaoDocumentDto>
-)
+) {
+    fun toDomain(): List<Place> {
+        return this.documents.map {
+            Place(
+                name = it.placeName,
+                longitude = it.y.toDouble(),
+                latitude = it.x.toDouble(),
+                type = SearchType.KAKAO
+            )
+        }
+    }
+}

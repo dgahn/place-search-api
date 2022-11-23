@@ -15,5 +15,5 @@ fun List<Place>.toPlaceListResponseDto(): PlaceListResponseDto {
 }
 
 fun Place.toPlaceResponseDto(): PlaceResponseDto {
-    return PlaceResponseDto(title)
+    return PlaceResponseDto(name)
 }
