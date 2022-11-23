@@ -3,6 +3,7 @@ package com.kakaobank.place.application
 import com.kakaobank.place.client.kakao.KaKaoClient
 import com.kakaobank.place.client.naver.NaverClient
 import com.kakaobank.place.domain.Place
+import com.kakaobank.place.domain.SearchPlaceHistory
 import com.kakaobank.place.domain.SearchType
 import org.springframework.stereotype.Service
 
@@ -47,6 +48,10 @@ class PlaceApplicationService(
                 }
             }
         }
+    }
+
+    fun searchTopPlace(size: Int): List<SearchPlaceHistory> {
+        throw NotImplementedError("")
     }
 
     companion object {
