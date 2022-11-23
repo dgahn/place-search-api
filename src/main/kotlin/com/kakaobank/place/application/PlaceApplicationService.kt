@@ -6,7 +6,9 @@ import com.kakaobank.place.domain.Place
 import com.kakaobank.place.domain.SearchPlaceHistory
 import com.kakaobank.place.domain.SearchPlaceHistoryJpaRepository
 import com.kakaobank.place.domain.SearchType
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class PlaceApplicationService(
@@ -14,17 +16,18 @@ class PlaceApplicationService(
     private val naverClient: NaverClient,
     private val searchPlaceHistoryJpaRepository: SearchPlaceHistoryJpaRepository
 ) {
+    @Transactional
     fun searchPlace(query: String): List<Place> {
         val kakaoPlaces = kakaoClient.search(query)
         val naverPlaces = naverClient.search(query)
         val placeSet = mutableSetOf<Place>()
         placeSet.addAll(kakaoPlaces)
         placeSet.addAll(naverPlaces)
-        countSearchPlaceHistory(query)
+        saveSearchPlaceHistory(query)
         return extract(placeSet)
     }
 
-    private fun countSearchPlaceHistory(query: String) {
+    private fun saveSearchPlaceHistory(query: String) {
         val history = searchPlaceHistoryJpaRepository.findByKeyword(query)
             ?: SearchPlaceHistory(keyword = query)
 
@@ -61,8 +64,10 @@ class PlaceApplicationService(
         }
     }
 
+    @Transactional(readOnly = true)
     fun searchTopPlace(size: Int): List<SearchPlaceHistory> {
-        throw NotImplementedError("")
+        val pageRequest = PageRequest.of(0, size)
+        return searchPlaceHistoryJpaRepository.findAllByOrderByCountDesc(pageRequest)
     }
 
     companion object {

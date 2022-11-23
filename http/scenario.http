@@ -1,3 +1,16 @@
-## 포인트 내역 조회
-GET http://localhost:8080/api/v1/places?query=라포랩스
+## 장소 검색 API
+GET http://localhost:8080/api/v1/places?query=은행
+Accept: application/json
+
+###
+GET http://localhost:8080/api/v1/places?query=서울역
+Accept: application/json
+
+###
+GET http://localhost:8080/api/v1/places?query=대전역
+Accept: application/json
+
+###
+## 검색 키워드 목록 API
+GET http://localhost:8080/api/v1/top-place
 Accept: application/json
