@@ -1,7 +1,7 @@
 package com.kakaobank.place.application
 
-import com.kakaobank.place.client.kakao.KaKaoClient
-import com.kakaobank.place.client.naver.NaverClient
+import com.kakaobank.place.client.PlaceSearchClient
+import com.kakaobank.place.domain.Place
 import com.kakaobank.place.domain.SearchPlaceHistoryJpaRepository
 import com.kakaobank.place.domain.SearchType
 import com.kakaobank.place.fixture.PlaceFixture
@@ -24,10 +24,7 @@ class PlaceApplicationServiceTest(
     private val placeApplicationService: PlaceApplicationService
 ) {
     @MockkBean
-    lateinit var kakaoClient: KaKaoClient
-
-    @MockkBean
-    lateinit var naverClient: NaverClient
+    lateinit var placeSearchClient: PlaceSearchClient
 
     @MockkBean
     lateinit var searchPlaceHistoryJpaRepository: SearchPlaceHistoryJpaRepository
@@ -43,18 +40,26 @@ class PlaceApplicationServiceTest(
         val kakaoSize = 4
         val naverSize = 4
         val expected = kakaoSize + naverSize
-        every { kakaoClient.search(any()) } returns PlaceFixture.getPlaces(
+        every { placeSearchClient.search(any()) } returns getPlaceSet(naverSize, kakaoSize)
+        val actual = placeApplicationService.searchPlace("query").size
+        actual shouldBe expected
+    }
+
+    private fun getPlaceSet(naverSize: Int, kakaoSize: Int): Set<Place> {
+        val kakaoPlaces = PlaceFixture.getPlaces(
             num = kakaoSize,
             name = "kakao",
             type = SearchType.KAKAO
         )
-        every { naverClient.search(any()) } returns PlaceFixture.getPlaces(
+        val naverPlaces = PlaceFixture.getPlaces(
             num = naverSize,
             name = "naver",
             type = SearchType.NAVER
         )
-        val actual = placeApplicationService.searchPlace("query").size
-        actual shouldBe expected
+        return mutableSetOf<Place>().apply {
+            this.addAll(kakaoPlaces)
+            this.addAll(naverPlaces)
+        }
     }
 
     @Test
@@ -62,16 +67,7 @@ class PlaceApplicationServiceTest(
         val kakaoSize = 3
         val naverSize = 6
         val expected = kakaoSize + naverSize
-        every { kakaoClient.search(any()) } returns PlaceFixture.getPlaces(
-            num = kakaoSize,
-            name = "kakao",
-            type = SearchType.KAKAO
-        )
-        every { naverClient.search(any()) } returns PlaceFixture.getPlaces(
-            num = naverSize,
-            name = "naver",
-            type = SearchType.NAVER
-        )
+        every { placeSearchClient.search(any()) } returns getPlaceSet(naverSize, kakaoSize)
         val actual = placeApplicationService.searchPlace("query").size
         actual shouldBe expected
     }
@@ -81,16 +77,7 @@ class PlaceApplicationServiceTest(
         val kakaoSize = 3
         val naverSize = 8
         val expected = 10
-        every { kakaoClient.search(any()) } returns PlaceFixture.getPlaces(
-            num = kakaoSize,
-            name = "kakao",
-            type = SearchType.KAKAO
-        )
-        every { naverClient.search(any()) } returns PlaceFixture.getPlaces(
-            num = naverSize,
-            name = "naver",
-            type = SearchType.NAVER
-        )
+        every { placeSearchClient.search(any()) } returns getPlaceSet(naverSize, kakaoSize)
         val actual = placeApplicationService.searchPlace("query").size
         actual shouldBe expected
     }
@@ -100,16 +87,7 @@ class PlaceApplicationServiceTest(
         val kakaoSize = 8
         val naverSize = 8
         val expected = 10
-        every { kakaoClient.search(any()) } returns PlaceFixture.getPlaces(
-            num = kakaoSize,
-            name = "kakao",
-            type = SearchType.KAKAO
-        )
-        every { naverClient.search(any()) } returns PlaceFixture.getPlaces(
-            num = naverSize,
-            name = "naver",
-            type = SearchType.NAVER
-        )
+        every { placeSearchClient.search(any()) } returns getPlaceSet(naverSize, kakaoSize)
         val actual = placeApplicationService.searchPlace("query").size
         actual shouldBe expected
     }
@@ -119,16 +97,7 @@ class PlaceApplicationServiceTest(
         val kakaoSize = 6
         val naverSize = 3
         val expected = kakaoSize + naverSize
-        every { kakaoClient.search(any()) } returns PlaceFixture.getPlaces(
-            num = kakaoSize,
-            name = "kakao",
-            type = SearchType.KAKAO
-        )
-        every { naverClient.search(any()) } returns PlaceFixture.getPlaces(
-            num = naverSize,
-            name = "naver",
-            type = SearchType.NAVER
-        )
+        every { placeSearchClient.search(any()) } returns getPlaceSet(naverSize, kakaoSize)
         val actual = placeApplicationService.searchPlace("query").size
         actual shouldBe expected
     }
@@ -138,16 +107,7 @@ class PlaceApplicationServiceTest(
         val kakaoSize = 6
         val naverSize = 5
         val expected = 10
-        every { kakaoClient.search(any()) } returns PlaceFixture.getPlaces(
-            num = kakaoSize,
-            name = "kakao",
-            type = SearchType.KAKAO
-        )
-        every { naverClient.search(any()) } returns PlaceFixture.getPlaces(
-            num = naverSize,
-            name = "naver",
-            type = SearchType.NAVER
-        )
+        every { placeSearchClient.search(any()) } returns getPlaceSet(naverSize, kakaoSize)
         val actual = placeApplicationService.searchPlace("query").size
         actual shouldBe expected
     }

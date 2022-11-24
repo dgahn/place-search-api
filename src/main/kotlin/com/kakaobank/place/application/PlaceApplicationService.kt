@@ -1,7 +1,6 @@
 package com.kakaobank.place.application
 
-import com.kakaobank.place.client.kakao.KaKaoClient
-import com.kakaobank.place.client.naver.NaverClient
+import com.kakaobank.place.client.PlaceSearchClient
 import com.kakaobank.place.domain.Place
 import com.kakaobank.place.domain.SearchPlaceHistory
 import com.kakaobank.place.domain.SearchPlaceHistoryJpaRepository
@@ -13,19 +12,13 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class PlaceApplicationService(
-    private val kakaoClient: KaKaoClient,
-    private val naverClient: NaverClient,
+    private val placeSearchClient: PlaceSearchClient,
     private val searchPlaceHistoryJpaRepository: SearchPlaceHistoryJpaRepository
 ) {
     @Transactional
     fun searchPlace(query: String): List<Place> {
-        val kakaoPlaces = kakaoClient.search(query)
-        val naverPlaces = naverClient.search(query)
-        val placeSet = mutableSetOf<Place>()
-        placeSet.addAll(kakaoPlaces)
-        placeSet.addAll(naverPlaces)
         saveSearchPlaceHistory(query)
-        return extract(placeSet)
+        return extract(placeSearchClient.search(query))
     }
 
     private fun saveSearchPlaceHistory(query: String) {
