@@ -36,7 +36,7 @@ class PlaceControllerTest : SpringMockMvcTestSupport() {
         every { placeApplicationService.searchTopPlace(any()) } returns SearchPlaceHistoryFixture
             .getSearchPlaceHistories()
 
-        val uri = URI("/api/v1/top-place")
+        val uri = URI("/api/v1/places/searched-top")
         val response = TopPlaceResponseDtoFixture.getTopPlaceListResponseDto()
         mockMvcGetTest(uri, response)
     }
