@@ -7,6 +7,7 @@ import com.kakaobank.place.domain.SearchPlaceHistory
 import com.kakaobank.place.domain.SearchPlaceHistoryJpaRepository
 import com.kakaobank.place.domain.SearchType
 import org.springframework.data.domain.PageRequest
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -28,7 +29,7 @@ class PlaceApplicationService(
     }
 
     private fun saveSearchPlaceHistory(query: String) {
-        val history = searchPlaceHistoryJpaRepository.findByKeyword(query)
+        val history = searchPlaceHistoryJpaRepository.findByIdOrNull(query)
             ?: SearchPlaceHistory(keyword = query)
 
         history.countUp()

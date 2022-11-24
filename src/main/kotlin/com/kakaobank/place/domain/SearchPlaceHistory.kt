@@ -8,15 +8,12 @@ import java.time.Instant
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.EntityListeners
-import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
 @Entity
 @EntityListeners(AuditingEntityListener::class)
 class SearchPlaceHistory(
     @Id
-    @GeneratedValue
-    val id: Long = 0,
     val keyword: String,
     approvedAt: Instant? = null,
     updatedAt: Instant? = null

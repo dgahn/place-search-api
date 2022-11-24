@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Import
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @ExtendWith(SpringExtension::class)
@@ -33,7 +34,7 @@ class PlaceApplicationServiceTest(
 
     @BeforeEach
     fun setUp() {
-        every { searchPlaceHistoryJpaRepository.findByKeyword(any()) } returns null
+        every { searchPlaceHistoryJpaRepository.findByIdOrNull(any()) } returns null
         every { searchPlaceHistoryJpaRepository.save(any()) } returns SearchPlaceHistoryFixture.getSearchPlaceHistory()
     }
 
