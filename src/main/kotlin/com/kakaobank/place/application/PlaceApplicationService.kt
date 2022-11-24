@@ -5,6 +5,7 @@ import com.kakaobank.place.domain.Place
 import com.kakaobank.place.domain.SearchPlaceHistory
 import com.kakaobank.place.domain.SearchPlaceHistoryJpaRepository
 import com.kakaobank.place.domain.SearchType
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -59,6 +60,7 @@ class PlaceApplicationService(
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(cacheNames = ["searchedTop"])
     fun searchTopPlace(size: Int): List<SearchPlaceHistory> {
         val pageRequest = PageRequest.of(0, size)
         return searchPlaceHistoryJpaRepository.findAllByOrderByCountDesc(pageRequest)

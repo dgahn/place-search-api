@@ -47,10 +47,12 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.springframework.retry:spring-retry")
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("mysql:mysql-connector-java:8.0.31")
+    implementation("com.github.ben-manes.caffeine:caffeine:3.1.1")
     runtimeOnly("org.jetbrains.kotlin:kotlin-reflect:1.6.21")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test"){
